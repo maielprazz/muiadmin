@@ -1,0 +1,82 @@
+[
+  {
+    "menuID": 1,
+    "menuText": "tim SQL",
+    "menuIcon": "bx bx-group",
+    "menuBadge": "NEW",
+    "submenuItems": [
+      {
+        "submenuID": 1,
+        "text": "dashboard",
+        "icon": "bx bxs-dashboard",
+        "path": "/dashboard",
+        "badge": "",
+        "badgeContent": "NEW"
+      },
+      {
+        "submenuID": 2,
+        "text": "server info",
+        "icon": "bx bx-tachometer",
+        "path": "/serverinfo",
+        "badge": "",
+        "badgeContent": "NEW"
+      },
+      {
+        "submenuID": 3,
+        "text": "project info",
+        "icon": "bx bx-list-plus",
+        "path": "/project",
+        "badge": "",
+        "badgeContent": "NEW"
+      }
+    ]
+  },
+  {
+    "menuID": 2,
+    "menuText": "master data",
+    "menuIcon": "bx bx-data",
+    "menuBadge": "NEW",
+    "submenuItems": [
+      {
+        "submenuID": 1,
+        "text": "store master",
+        "icon": "bx bx-store-alt",
+        "path": "/storemaster",
+        "badge": "",
+        "badgeContent": "NEW"
+      },
+      {
+        "submenuID": 2,
+        "text": "price checking",
+        "icon": "bx bx-dollar-circle",
+        "path": "/pricecheck",
+        "badge": "",
+        "badgeContent": "NEW"
+      }
+    ]
+  },
+  {
+    "menuID": 3,
+    "menuText": "load data",
+    "menuIcon": "bx bx-transfer",
+    "menuBadge": "NEW",
+    "submenuItems": [
+      {
+        "submenuID": 1,
+        "text": "upload",
+        "icon": "bx bx-upload",
+        "path": "/upload",
+        "badge": "",
+        "badgeContent": "NEW"
+      },
+      {
+        "submenuID": 2,
+        "text": "download",
+        "icon": "bx bx-download",
+        "path": "/download",
+        "badge": "",
+        "badgeContent": "NEW"
+      }
+    ]
+  }
+]
