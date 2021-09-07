@@ -1,0 +1,32 @@
+{
+  "menuID": 1,
+  "menuText": "tim SQL",
+  "menuIcon": "bx bx-group",
+  "menuBadge": "NEW",
+  "submenuItems": [
+    {
+      "submenuID": 1,
+      "text": "dashboard",
+      "icon": "bx bxs-dashboard",
+      "path": "/dashboard",
+      "badge": "",
+      "badgeContent": "NEW"
+    },
+    {
+      "submenuID": 2,
+      "text": "server info",
+      "icon": "bx bx-tachometer",
+      "path": "/serverinfo",
+      "badge": "",
+      "badgeContent": "NEW"
+    },
+    {
+      "submenuID": 3,
+      "text": "project info",
+      "icon": "bx bx-list-plus",
+      "path": "/project",
+      "badge": "",
+      "badgeContent": "NEW"
+    }
+  ]
+}

@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 const { SearchBar } = Search;
 
-function Storemaster() {
-  const [storelist, setStoreList] = useState([]);
+function ListServer() {
+  const [serverlist, setServerList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const classes = useStyles();
@@ -41,46 +41,16 @@ function Storemaster() {
   };
 
   const columns = [
-    { dataField: 'ASOFDATE', text: 'ASOFDATE', sort: true },
-    { dataField: 'COMPCODE', text: 'COMPCODE', sort: true },
-    { dataField: 'SITECODE', text: 'SITECODE', sort: true },
-    { dataField: 'STOREDESC', text: 'STOREDESC', sort: true },
-    { dataField: 'MALLNAME', text: 'MALLNAME', sort: true },
-    { dataField: 'TELP', text: 'TELP', sort: true },
-    { dataField: 'EMAIL', text: 'EMAIL', sort: true },
-    { dataField: 'CONCEPT', text: 'CONCEPT', sort: true },
-    { dataField: 'PROVINCE', text: 'PROVINCE', sort: true },
-    { dataField: 'REGION', text: 'REGION', sort: true },
-    { dataField: 'GM_OM', text: 'GM_OM', sort: true },
-    { dataField: 'GM_MAIL', text: 'GM_MAIL', sort: true },
-    { dataField: 'OM_NAME', text: 'OM_NAME', sort: true },
-    { dataField: 'OM_MAIL', text: 'OM_MAIL', sort: true },
-    { dataField: 'OM_PHONE', text: 'OM_PHONE', sort: true },
-    { dataField: 'OIC_NAME', text: 'OIC_NAME', sort: true },
-    { dataField: 'OIC_MAIL', text: 'OIC_MAIL', sort: true },
-    { dataField: 'OIC_PHONE', text: 'OIC_PHONE', sort: true },
-    { dataField: 'SBU', text: 'SBU', sort: true },
-    { dataField: 'STORETYPE', text: 'STORETYPE', sort: true },
-    { dataField: 'SITEPROFILE', text: 'SITEPROFILE', sort: true },
-    { dataField: 'CONNECTION_TYPE', text: 'CONNECTION_TYPE', sort: true },
-    { dataField: 'STORESTATUS_SQL', text: 'STORESTATUS_SQL', sort: true },
-    { dataField: 'STOREOPEN_DATE', text: 'STOREOPEN_DATE', sort: true },
-    { dataField: 'STORECLOSE_DATE', text: 'STORECLOSE_DATE', sort: true },
-    { dataField: 'FAILOVER_STATUS', text: 'FAILOVER_STATUS', sort: true },
-    {
-      dataField: 'JASPER_NUMBER_DEVICE',
-      text: 'JASPER_NUMBER_DEVICE',
-      sort: true,
-    },
-    { dataField: 'JASPESR_DEVICE', text: 'JASPESR_DEVICE', sort: true },
-    { dataField: 'JASPER_IPADDRESS', text: 'JASPER_IPADDRESS', sort: true },
-    { dataField: 'JASPER_MSISDN', text: 'JASPER_MSISDN', sort: true },
-    { dataField: 'JASPER_IMSI', text: 'JASPER_IMSI', sort: true },
-    { dataField: 'ROOT_STATUS', text: 'ROOT_STATUS', sort: true },
-    { dataField: 'IP_EXTERNAL', text: 'IP_EXTERNAL', sort: true },
-    { dataField: 'IP_MIKROTIK', text: 'IP_MIKROTIK', sort: true },
-    { dataField: 'IP_GATEWAY', text: 'IP_GATEWAY', sort: true },
-    { dataField: 'IP_FORTIGATE', text: 'IP_FORTIGATE', sort: true },
+    { dataField: 'Server_Status', text: 'Server Status', sort: true },
+    { dataField: 'Name', text: 'Name', sort: true },
+    { dataField: 'Hostname', text: 'Host', sort: true },
+    { dataField: 'IP', text: 'IP', sort: true },
+    { dataField: 'Windows_Server', text: 'Windows', sort: true },
+    { dataField: 'CPU', text: 'CPU', sort: true },
+    { dataField: 'Memory', text: 'Memory', sort: true },
+    { dataField: 'SQL_Version', text: 'SQl Version', sort: true },
+    { dataField: 'Disc_Size', text: 'Disc Size', sort: true },
+    { dataField: 'Location', text: 'Location', sort: true },
   ];
 
   // [
@@ -111,10 +81,10 @@ function Storemaster() {
 
   useEffect(() => {
     axios
-      //.get('http://localhost:8000/api/storemaster/')
-      .get('api/storemaster/')
+      //  .get('http://localhost:8000/api/listserver/') test
+      .get('api/listserver/')
       .then((res) => {
-        setStoreList(res.data);
+        setServerList(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -127,8 +97,8 @@ function Storemaster() {
     <div>
       <ToolkitProvider
         bootstrap4
-        keyField="SITECODE"
-        data={storelist}
+        keyField="Name"
+        data={serverlist}
         columns={columns}
         exportCSV
         search
@@ -164,7 +134,7 @@ function Storemaster() {
                 },
               })}
               // bootstrap4
-              keyField="STORECODE"
+              keyField="Name"
               // columns={columns}
               // data={userlist}
               pagination={pagination}
@@ -178,4 +148,4 @@ function Storemaster() {
   );
 }
 
-export default Storemaster;
+export default ListServer;

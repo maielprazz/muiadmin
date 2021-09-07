@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blueGrey, lightBlue } from '@material-ui/core/colors';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from '../src/components/Layout';
 import Loading from '../src/components/Loading';
 import Login from './pages/Login';

@@ -7,6 +7,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import axios from 'axios';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+// import overlayFactory from 'react-bootstrap-table2-overlay';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,8 +62,8 @@ function Pricecheck() {
 
   useEffect(() => {
     axios
-      // .get('https://jsonplaceholder.typicode.com/users')
-      .get('http://localhost:3000/users')
+      .get('https://jsonplaceholder.typicode.com/users')
+      // .get('http://localhost:3000/users')
       .then((res) => {
         setUserList(res.data);
       })

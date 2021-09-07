@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+import Alert from '@material-ui/lab/Alert';
 import Link from '@material-ui/core/Link';
-// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { login } from '../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../components/Loading';
 
 function Copyright() {
   return (
@@ -46,7 +47,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login({ location, history }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const userLogin = useSelector((state) => state.userLogin);
+  const { error, loading, userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, userInfo, redirect]);
+
+  const submitLogin = (e) => {
+    e.preventDefault();
+    // console.log('Submitted', username, password);
+    dispatch(login(username, password));
+  };
+
   const classes = useStyles();
 
   return (
@@ -59,7 +81,10 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        {error && <Alert severity="error"> {error}</Alert>}
+        {loading && <Loading />}
+
+        <form className={classes.form} onSubmit={submitLogin} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +95,8 @@ export default function Login() {
             name="username"
             autoComplete="username"
             autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -81,6 +108,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { format } from 'date-fns';
@@ -25,12 +26,20 @@ import drawerItems from '../assets/data/drawer_menu.json';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+// import SvgIcon from '@material-ui/core/SvgIcon';
+import logo from '../assets/images/MAP-AKTIF.png';
+import { logout } from '../actions/userActions';
+// import mario from '../assets/images/mario-av.png';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
     marginLeft: theme.spacing(2),
+  },
+  logout: {
+    marginLeft: theme.spacing(1),
   },
   date: {
     flexGrow: 1,
@@ -122,25 +131,35 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(2),
   },
   active: {
-    background: '#f4f4f4',
+    background: '#a4a4a4',
+  },
+  logo: {
+    maxWidth: 80,
+    maxHeight: 64,
+    marginRight: theme.spacing(4),
   },
 }));
 
 function Layout() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const classes = useStyles();
   const theme = useTheme();
 
   const [open, setOpen] = useState(true);
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const [checked, setChecked] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
 
-  const handleChange = () => {
+  const handleTheme = () => {
     setChecked((prev) => !prev);
   };
-
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   const oriexpandset = Object.assign({
     settings: Array.from(
       drawerItems.map((menu) => ({ id: menu.menuID, open: false }))
@@ -166,9 +185,10 @@ function Layout() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    setUsername('Ismail');
-  }, []);
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   setUsername('Ismail');
+  // }, []);
 
   return (
     <div className={classes.root}>
@@ -196,10 +216,40 @@ function Layout() {
             </Tooltip>
           </IconButton>
           <Typography className={classes.date}>
-            Today is the {format(new Date(), 'do MMMM Y')}
+            {format(new Date(), 'do MMM Y')}
           </Typography>
-          <Typography>{username}</Typography>
-          <Avatar src="/mario-av.png" className={classes.avatar} />
+          <Typography>
+            Hi,{' '}
+            {userInfo ? (
+              <span className={classes.capitalizeText}>
+                {userInfo.username.toString().replace('.', ' ')}
+              </span>
+            ) : (
+              <span className={classes.capitalizeText}>Guest</span>
+            )}
+          </Typography>
+          {/* <Avatar src={} className={classes.avatar} /> */}
+          {userInfo ? (
+            <Button
+              className={classes.logout}
+              size="medium"
+              variant="outlined"
+              color="secondary"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              className={classes.logout}
+              size="medium"
+              variant="outlined"
+              color="secondary"
+              onClick={() => history.push('/login')}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 
@@ -219,13 +269,12 @@ function Layout() {
         }}
       >
         <div className={classes.toolbar}>
-          <Typography
-            variant="button"
-            className={classes.companyLogo}
+          <img
+            src={logo}
+            alt="MAP AKTIF LOGO"
+            className={classes.logo}
             onClick={() => history.push('/home')}
-          >
-            COMPCODE
-          </Typography>
+          />
           <Tooltip title="Hide Menu">
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? (
@@ -299,14 +348,14 @@ function Layout() {
           </List>
         ))}
         <Divider />
-        <FormControlLabel
-          control={<Switch checked={checked} onChange={handleChange} />}
+        {/* <FormControlLabel
+          control={<Switch checked={checked} onChange={handleTheme} />}
           label="Dark Mode"
-        />
+        /> */}
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Content />
+        <Content user={userInfo} />
       </main>
     </div>
   );

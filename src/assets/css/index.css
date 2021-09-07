@@ -272,3 +272,7 @@
     /* Safari, Android, iOS */
       url('../fonts/quicksand-v24-latin-700.svg#Quicksand') format('svg'); /* Legacy iOS */
 }
+
+.react-bootstrap-table table {
+  table-layout: auto;
+}

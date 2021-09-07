@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
+import React, { Suspense, useEffect } from 'react';
+import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -13,6 +12,7 @@ import Download from './Download';
 import Upload from './Upload';
 import ServerInfo from './ServerInfo';
 import Pricecheck from './Pricecheck';
+import ListServer from './ServerList';
 
 function Copyright() {
   return (
@@ -29,13 +29,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    // position: 'sticky',
-    // top: 'calc(100% - 50px)',
-    // margin: 'auto',
     width: '100%',
-    // height: '100%',
-    // marginLeft: '-10%',
-    // marginTop: '-10px',
   },
   toolbar: {
     display: 'flex',
@@ -47,8 +41,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Content() {
+function Content(user) {
   const classes = useStyles();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!user.user) {
+      history.push('/login');
+    }
+  }, [user, history]);
+
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
@@ -75,6 +77,11 @@ function Content() {
           render={(props) => <Pricecheck {...props} />}
         />
         <Route
+          path="/ServerList"
+          name="Server List"
+          render={(props) => <ListServer {...props} />}
+        />
+        <Route
           path="/upload"
           name="Upload"
           render={(props) => <Upload {...props} />}
@@ -93,6 +100,12 @@ function Content() {
           path="/serverinfo"
           name="Server Info"
           render={(props) => <ServerInfo {...props} />}
+        />
+        <Route
+          exact
+          path="/"
+          name="Landing"
+          render={(props) => <Home {...props} />}
         />
       </Switch>
       <div className={classes.toolbar}>

@@ -1,9 +1,20 @@
 import React from 'react';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, ButtonGroup, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Home = () => {
+  const useStyles = makeStyles({
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <div>
+      <Typography variant="h5">Welcome to MAA Data Analytics Portal</Typography>
       <Typography paragraph>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
         sequi ut hic voluptatibus quisquam deleniti sapiente libero maiores
@@ -11,15 +22,21 @@ const Home = () => {
         reiciendis quam assumenda eos natus necessitatibus, quae deserunt dolore
         nihil, beatae possimus blanditiis quas facere at harum a. Fugit, labore.
       </Typography>
-      <Button variant="contained" color="primary">
-        Tombol Primary
-      </Button>
-      <Button variant="contained" color="secondary">
-        Tombol Secondary
-      </Button>
-      <Button variant="contained" color="primary" disabled>
-        Tombol Disabled
-      </Button>
+      <br />
+      <Container className={classes.container}>
+        <ButtonGroup>
+          <Button variant="contained" color="primary">
+            Our Team
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            href="mailto:ismail.prasetyo@map.co.id"
+          >
+            Contact Us
+          </Button>
+        </ButtonGroup>
+      </Container>
     </div>
   );
 };
